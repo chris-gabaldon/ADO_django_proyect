@@ -32,7 +32,7 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 # Usar las variables de entorno directamente
 SECRET_KEY = env('SECRET_KEY', default='unsafe-secret-key')
 DEBUG = env('DEBUG')
-ALLOWED_HOSTS = env('ALLOWED_HOSTS', default='localhost').split(',')
+ALLOWED_HOSTS = ['ado-django-proyect-1.onrender.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
