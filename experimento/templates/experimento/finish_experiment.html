@@ -1,0 +1,128 @@
+<!-- experimento/templates/experimento/finish_experiment.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fin del Experimento</title>
+    <style>
+        :root {
+            font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+            line-height: 1.5;
+            font-weight: 400;
+            color-scheme: light dark;
+            color: rgba(255, 255, 255, 0.87);
+            background-color: #111111;
+            font-synthesis: none;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-width: 320px;
+            min-height: 100vh;
+            background-color: #222133;
+            color: rgba(255, 255, 255, 0.87);
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 3.2em;
+            line-height: 1.1;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            color: #ddd;
+            margin-bottom: 40px;
+        }
+
+        hr {
+            width: 50%;
+            border-color: #535bf2;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5em;
+            }
+
+            h2 {
+                font-size: 1.5em;
+            }
+
+            hr {
+                width: 70%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            h2 {
+                font-size: 1.3em;
+            }
+
+            hr {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Gracias por participar en el experimento.</h1>
+    <h2>Laboratorio de Neurociencias de la Universidad Torcuato Di Tella</h2>
+    <hr/>
+</body>
+</html>
+
+<script>
+    // Coloca aquí todo el código JavaScript
+    const csrftoken = getCookie('csrftoken');
+    
+    async function sendResponse(response) {
+        
+        console.log('called sendResponse from finish_experiment.html')
+        const trial = trials[currentTrial];
+        const reactionTime = 1.0;
+
+        await fetch('/save_response/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken,
+            },
+            body: JSON.stringify({
+                'trial_id': trial.id,
+                'response': response,
+                'reaction_time': reactionTime,
+            }),
+        });
+
+        // Más lógica de respuesta
+    }
+
+    // Definición de la función showNumbers
+    async function showNumbers(numbers, displayTime, interTime) {
+        for (let numero of numbers) {
+            document.getElementById('stimulus').innerText = numero;
+            await new Promise(resolve => setTimeout(resolve, displayTime * 1000));
+            document.getElementById('stimulus').innerText = '';
+            await new Promise(resolve => setTimeout(resolve, interTime * 1000));
+        }
+    }
+
+    // Resto del código JavaScript
+</script>
+
